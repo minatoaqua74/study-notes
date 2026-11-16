@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unix 基本操作 | 期中複習筆記站</title>
+  <meta name="description" content="Unix（Ubuntu 系）使用者管理、sudo、ssh、磁碟分割與自動掛載的重點指令。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-subject="Unix">
+  <div class="wrap">
+    <header>
+      <a class="back" href="../index.html">← 回首頁</a>
+      <h1>Unix 基本操作</h1>
+      <span class="tag">Unix</span>
+    </header>
+
+    <main>
+      <p class="summary">建使用者、給 sudo、開 ssh、分割磁碟並寫進 fstab 自動掛載。</p>
+
+      <h2>使用者管理</h2>
+      <p>Debian／Ubuntu 系可用 <code>adduser</code>（互動式、自動建家目錄）或 <code>useradd</code>（較底層，需自己加參數）。</p>
+<pre><code>sudo adduser ted
+sudo useradd -m -s /bin/bash james   # -m 建家目錄
+sudo passwd james                    # 設定密碼
+id james                             # 查看 uid、gid、所屬群組</code></pre>
+      <p>帳號資料在 <code>/etc/passwd</code>，密碼雜湊在 <code>/etc/shadow</code>。</p>
+
+      <h2>sudo 權限</h2>
+      <p>Ubuntu 系預設 <code>sudo</code> 群組的成員可使用 sudo。把使用者加入群組：</p>
+<pre><code>sudo usermod -aG sudo ted</code></pre>
+      <p>要細部設定規則時，用 <code>sudo visudo</code> 編輯 <code>/etc/sudoers</code>，不要直接用一般編輯器改。</p>
+
+      <h2>ssh 遠端登入</h2>
+<pre><code>sudo apt install openssh-server
+sudo systemctl status ssh
+ssh ted@&lt;主機 IP&gt;</code></pre>
+
+      <h2>磁碟分割與自動掛載</h2>
+      <ol>
+        <li><code>lsblk</code> 找到新磁碟（例如 <code>/dev/sdb</code>）</li>
+        <li><code>sudo fdisk /dev/sdb</code> 建分割區，最後按 <kbd>w</kbd> 才會寫入</li>
+        <li><code>sudo mkfs.ext4 /dev/sdb1</code> 格式化</li>
+        <li><code>sudo mkdir /mnt/data1</code> 建掛載點</li>
+        <li><code>sudo blkid</code> 取得分割區 UUID</li>
+        <li>在 <code>/etc/fstab</code> 新增一行，再用 <code>sudo mount -a</code> 測試</li>
+      </ol>
+<pre><code>UUID=&lt;你的 UUID&gt;  /mnt/data1  ext4  defaults  0  2</code></pre>
+
+      <aside class="note">實際考試的帳號名稱、磁碟容量與掛載點以考題為準，此頁僅整理通用流程。</aside>
+
+      <aside class="warn">
+        <strong>易錯點／考點</strong>
+        <ul>
+          <li><code>useradd</code> 不加 <code>-m</code> 不會建立家目錄。</li>
+          <li><code>usermod -G</code> 沒加 <code>-a</code> 會覆蓋原有群組，應使用 <code>-aG</code>。</li>
+          <li><code>fdisk</code> 在按 <kbd>w</kbd> 之前都只是暫存，沒寫入就離開等於沒分割。</li>
+          <li><code>/etc/fstab</code> 寫錯可能導致開機失敗，修改後務必先跑 <code>mount -a</code> 測試。</li>
+        </ul>
+      </aside>
+
+      <h2>小測驗</h2>
+      <details>
+        <summary>如何把使用者 ted 加入 sudo 群組而不影響他原有的其他群組？</summary>
+        <p><code>sudo usermod -aG sudo ted</code>，關鍵是 <code>-a</code>（append）。</p>
+      </details>
+      <details>
+        <summary>分割並格式化完成後，要讓系統開機自動掛載，需要修改哪個檔案？</summary>
+        <p><code>/etc/fstab</code>，建議使用 UUID 指定裝置，並用 <code>mount -a</code> 驗證。</p>
+      </details>
+      <details>
+        <summary>要查看某個使用者所屬的群組，可用哪個指令？</summary>
+        <p><code>id &lt;使用者&gt;</code> 或 <code>groups &lt;使用者&gt;</code>。</p>
+      </details>
+    </main>
+
+    <footer>
+      <span><a href="../index.html">回首頁</a> ・ <a href="network-layers.html">下一頁：網路五層架構 →</a></span>
+      <span>最後更新：2026-11-16</span>
+    </footer>
+  </div>
+</body>
+</html>
