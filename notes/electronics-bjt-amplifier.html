@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BJT 與放大電路 | 期中複習筆記站</title>
+  <meta name="description" content="電子學第 3 章：BJT 構造與偏壓、三種組態、α 與 β 的關係，以及三種放大器的特性。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-subject="電子學">
+  <div class="wrap">
+    <header>
+      <a class="back" href="../index.html">← 回首頁</a>
+      <h1>BJT 與放大電路</h1>
+      <span class="tag">電子學</span>
+    </header>
+
+    <main>
+      <p class="summary">BE 順偏、BC 逆偏，BJT 才能放大；三種組態各有特性。</p>
+
+      <h2>BJT 構造與偏壓</h2>
+      <p>雙極性接面電晶體（Bipolar Junction Transistor, BJT）由 P 型與 N 型半導體相接而成，有 NPN 與 PNP 兩種，是三端元件：基極（Base, B）在中間，另外兩端是集極（Collector, C）和射極（Emitter, E）。</p>
+      <p>基極－射極接合要加<strong>順向偏壓</strong>，基極－集極接合要加<strong>逆向偏壓</strong>，電晶體才能發揮放大等功能。</p>
+
+      <h2>三種組態</h2>
+      <p>三個端點都可以當作共同的參考點，因此有三種連接法：</p>
+      <table>
+        <thead>
+          <tr><th>組態</th><th>共同端</th><th>電流增益</th><th>重點</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>共基極（CB）</td><td>基極</td><td>α = h<sub>FB</sub> = I<sub>C</sub> / I<sub>E</sub></td><td>輸入電流為 I<sub>E</sub>，輸出電流為 I<sub>C</sub></td></tr>
+          <tr><td>共射極（CE）</td><td>射極</td><td>β = h<sub>FE</sub></td><td>最廣泛使用的組態</td></tr>
+          <tr><td>共集極（CC）</td><td>集極</td><td>—</td><td>又稱射極隨耦器，電流增益最大</td></tr>
+        </tbody>
+      </table>
+
+      <h2>α 與 β 的關係</h2>
+      <p>交流電流增益定義為 h<sub>fe</sub> = β = ΔI<sub>C</sub> / ΔI<sub>B</sub>（V<sub>CE</sub> 固定）。兩種增益可以互相換算：</p>
+<pre><code>h_fb = h_fe / (1 + h_fe)
+h_fe = h_fb / (1 − h_fb)</code></pre>
+
+      <h2>放大與工作點</h2>
+      <p>放大（Amplification）是讓輸入信號的振幅變大。要靠直流偏壓設定適當的<strong>工作點（Operating Point）</strong>，信號才會在直流準位上下對稱變化。</p>
+      <p>轉移曲線的非線性區不能用來放大，否則輸出會失真。分壓器偏壓（四個電阻）的目的，是讓輸出直流電壓約為 V<sub>CC</sub> 的一半，使交流輸出有最大的擺動空間，且不會碰到 0 V 或 V<sub>CC</sub>。</p>
+
+      <h2>三種放大器的交流特性</h2>
+      <table>
+        <thead>
+          <tr><th>放大器</th><th>輸出取自</th><th>講義列出的特性</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>共射極（CE）</td>
+            <td>集極</td>
+            <td>輸出與輸入相位差 180°；功率增益 G<sub>p</sub> = |G<sub>v</sub>|·|G<sub>i</sub>|</td>
+          </tr>
+          <tr>
+            <td>共集極（CC）</td>
+            <td>射極</td>
+            <td>G<sub>v</sub> ≅ 1；Z<sub>out</sub> ≅ R<sub>E</sub> // r<sub>e</sub>；G<sub>i</sub> ≅ Z<sub>in</sub> / R<sub>L</sub></td>
+          </tr>
+          <tr>
+            <td>共基極（CB）</td>
+            <td>集極</td>
+            <td>Z<sub>in</sub> = R<sub>E</sub> // r<sub>e</sub>；Z<sub>out</sub> ≅ R<sub>C</sub>；G<sub>v</sub> ≅ R<sub>C</sub> / r<sub>e</sub>；G<sub>i</sub> ≅ h<sub>FE</sub> / (1 + h<sub>FE</sub>) ≅ 1</td>
+          </tr>
+        </tbody>
+      </table>
+      <aside class="note">待確認：講義的 CE 放大器完整交流特性（Z<sub>in</sub>、Z<sub>out</sub>、G<sub>v</sub> 等）只有例題數字，未整理成通用公式，請對照課本。講義第 44 頁「三種放大器組態之摘要」只有一句提示，沒有摘要表。</aside>
+
+      <aside class="warn">
+        <strong>易錯點／考點</strong>
+        <ul>
+          <li>放大的偏壓條件是 BE 順偏、BC 逆偏，兩個接合不要記反。</li>
+          <li>CE 放大器的輸出與輸入反相 180°。</li>
+          <li>CC 的電壓增益約為 1，但電流增益大；CB 的電流增益約為 1，但電壓增益可以很大。</li>
+          <li>α = I<sub>C</sub> / I<sub>E</sub> 用於 CB，β 用於 CE，換算時要用上面兩條公式。</li>
+        </ul>
+      </aside>
+
+      <h2>小測驗</h2>
+      <details>
+        <summary>共基極組態的直流電流增益 α 如何定義？</summary>
+        <p>α = h<sub>FB</sub> = I<sub>C</sub> / I<sub>E</sub>。</p>
+      </details>
+      <details>
+        <summary>射極隨耦器是哪一種組態？它的電壓增益約是多少？</summary>
+        <p>共集極（CC）放大器，電壓增益 G<sub>v</sub> ≅ 1。</p>
+      </details>
+      <details>
+        <summary>若 h<sub>fe</sub> = 99，則 h<sub>fb</sub> 是多少？</summary>
+        <p>h<sub>fb</sub> = h<sub>fe</sub> / (1 + h<sub>fe</sub>) = 99 / 100 = 0.99。</p>
+      </details>
+    </main>
+
+    <footer>
+      <span><a href="../index.html">回首頁</a></span>
+      <span>最後更新：2026-11-16</span>
+    </footer>
+  </div>
+</body>
+</html>
