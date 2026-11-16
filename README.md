@@ -2,7 +2,7 @@
 
 一個純 HTML + CSS 的靜態網站，把課程考前重點整理成「每頁一個主題、3–5 分鐘讀完」的筆記。
 
-- 網頁：`https://<帳號>.github.io/<repo 名稱>/`
+- 網頁：`https://minatoaqua74.github.io/study-notes/`
 - AI 規則：見 [`CLAUDE.md`](CLAUDE.md)（結構、命名、頁面格式、檢查清單）
 
 ## 目前內容
@@ -24,3 +24,4 @@
 ## 本機預覽
 
 直接用瀏覽器開啟 `index.html` 即可，不需要任何建置工具。
+| 電子學 | `notes/electronics-bjt-amplifier.html` |
